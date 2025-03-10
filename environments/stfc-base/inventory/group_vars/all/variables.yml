@@ -13,6 +13,11 @@ community_images_custom_properties:
 community_images_azimuth_images_manifest: >-
  {{ lookup('url', community_images_azimuth_images_manifest_url, split_lines = False) | from_json | dict2items | rejectattr('key', 'match', '^kubernetes.*') | items2dict }}
  
+# prefix all azimuth community image names with azimuth-* 
+community_images: >-
+  {{ community_images_default | combine(community_images_extra, recursive = True) }}
+
+
 #############################################################################
 # Ansible Playbooks For STFC Security Compliance 
 
